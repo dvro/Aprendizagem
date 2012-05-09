@@ -3,3 +3,12 @@
 
 *.asv
 *.pyc
+
+*.aux
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.dvi
+
