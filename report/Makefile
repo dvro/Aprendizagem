@@ -1,6 +1,5 @@
 
 clean:
-	@rm *.pdf
 	@rm *.dvi -R
 	@rm *.log -R
 	@rm *.bbl -R
@@ -18,6 +17,7 @@ bib:
 	@latex aprendizagem
 
 pdf:
+	@rm *.pdf
 	@dvipdfm aprendizagem.dvi
 
 all:

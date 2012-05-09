@@ -8,8 +8,8 @@
 \BOOKMARK [1][-]{section.2.2}{Classificadores}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.2.1}{K-Nearest Neighbor}{section.2.2}
 \BOOKMARK [2][-]{subsection.2.2.2}{Janela de Parzen}{section.2.2}
-\BOOKMARK [2][-]{subsection.2.2.3}{MLE}{section.2.2}
-\BOOKMARK [2][-]{subsection.2.2.4}{EM}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.3}{Estima\347\343o da M\341xima Verossimilhan\347a}{section.2.2}
+\BOOKMARK [2][-]{subsection.2.2.4}{Expectation-Maximization}{section.2.2}
 \BOOKMARK [2][-]{subsection.2.2.5}{Combina\347\343o de Classificadores}{section.2.2}
 \BOOKMARK [1][-]{section.2.3}{Agrupamento}{chapter.2}
 \BOOKMARK [2][-]{subsection.2.3.1}{K-Means}{section.2.3}
