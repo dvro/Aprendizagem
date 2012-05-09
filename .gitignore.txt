@@ -3,3 +3,12 @@
 
 *.asv
 *.pyc
+
+report/*.aux
+report/*.lof
+report/*.log
+report/*.lot
+report/*.out
+report/*.toc
+report/*.dvi
+
