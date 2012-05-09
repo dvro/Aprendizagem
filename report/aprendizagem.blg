@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: aprendizagem.aux
+A level-1 auxiliary file: capitulos/introducao/introducao.aux
+A level-1 auxiliary file: capitulos/capitulo-2/capitulo-2.aux
+A level-1 auxiliary file: capitulos/capitulo-3/capitulo-3.aux
+A level-1 auxiliary file: capitulos/conclusao/conclusao.aux
+The style file: chemthes.bst
+Database file #1: bibliografia/bibliografia.bib
+You've used 1 entry,
+            2688 wiz_defined-function locations,
+            614 strings with 4907 characters,
+and the built_in function-call counts, 571 in all, are:
+= -- 54
+> -- 18
+< -- 2
++ -- 9
+- -- 6
+* -- 45
+:= -- 95
+add.period$ -- 2
+call.type$ -- 1
+change.case$ -- 9
+chr.to.int$ -- 1
+cite$ -- 1
+duplicate$ -- 28
+empty$ -- 43
+format.name$ -- 9
+if$ -- 119
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 1
+newline$ -- 9
+num.names$ -- 4
+pop$ -- 9
+preamble$ -- 1
+purify$ -- 6
+quote$ -- 0
+skip$ -- 21
+stack$ -- 0
+substring$ -- 33
+swap$ -- 12
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 9
+warning$ -- 0
+while$ -- 5
+width$ -- 0
+write$ -- 16

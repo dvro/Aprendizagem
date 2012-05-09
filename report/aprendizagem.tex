@@ -1,0 +1,99 @@
+%%% Time-stamp: <mainrep.tex 13:08, 25 May 2009 by P. Sunthar>
+
+%%% $Log:$
+
+\documentclass[11pt,a4paper,openright]{report}
+\includeonly{%
+	capitulos/introducao/introducao,
+	capitulos/capitulo-2/capitulo-2,
+	capitulos/capitulo-3/capitulo-3,
+	capitulos/conclusao/conclusao
+}
+
+
+
+%%% Some commonly used packages (make sure your LaTeX installation
+%%% contains these packages, if not ask your senior to help installing
+%%% the packages)
+
+\usepackage[bookmarks,%
+            a4paper,%
+            breaklinks,%
+            backref=false,%
+            dvips,ps2pdf,%
+            pdfhighlight=/I,%
+            pdffitwindow=true,%
+            pdfstartview=Fit,%
+            pdfcenterwindow=true,%
+            linkbordercolor={1 0 1},%
+            %colorlinks,%
+            pdftitle=Essential LaTeX Templates,%
+            pdfauthor=P Sunthar]%
+            {hyperref}
+
+
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{subfigure}
+\usepackage{appendix}
+
+\usepackage{natbib}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\graphicspath{{expt/}}
+
+
+\usepackage{times}
+\usepackage[varg]{txfonts}
+
+%%% Macro definitions for Commonly used symbols
+\newcommand{\etas}{\ensuremath{\eta_{\mathrm{s}}}}
+
+\begin{document}
+\title{Projeto de Aprendizagem de Máquina}
+\author{Dayvid Victor Rodrigues de Oliveira e Denys Lins Farias}
+\date{\today}
+
+\maketitle
+
+
+\begin{abstract}
+ABSTRACT
+\end{abstract}
+
+\pagenumbering{roman}
+\tableofcontents
+
+\listoftables
+\listoffigures
+
+\cleardoublepage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\include{capitulos/introducao/introducao}
+\include{capitulos/capitulo-2/capitulo-2}
+\include{capitulos/capitulo-3/capitulo-3}
+\include{capitulos/conclusao/conclusao}
+
+\bibliographystyle{chemthes}
+\bibliography{bibliografia/bibliografia}
+
+
+\end{document}
+
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
