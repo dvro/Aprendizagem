@@ -64,12 +64,19 @@ Para se obter a função de densidade de probabilidade de uma amostra $x$ utiliz
 Determinar o $h$ ideal é uma tarefa minunciosa, pois, se o valor de $h$ for muito pequeno, haverá muita especialização e estará mais sujeita a erros ocasionados por ruídos, já se $h$ for muito grande, ocorrerá uma super-generalização. A escolha da função $K(x)$ apropriada também é um problema para esta técnica.
 
 \subsection{Estimação da Máxima Verossimilhança}
+\label{subsec:mle}
 
 Estimativa por máxima verossimilhança, $Maximum-Likelihood$, é um método para estimar os parâmetros de um modelo estatístico. A partir de um conjunto de dados e um dado modelo estatístico (i.e. Normal), o $MLE$ estima valores adequados para os parâmetros do modelo.
 
 De forma geral, dado um conjunto de instâncias de treinamento e um modelo estatístico, o $MLE$ estima os valores dos parâmetros do modelo estatístico de forma que a probabilidade dos dados observados sejam maximizados.
 
-\subsection{Expectation-Maximization}
+\subsection{Algoritmo Expectation-Maximization}
+\label{subsec:em}
+Expectation-Maximization é um algoritmo iterativo para se encontrar a máxima verossimilhança, os parâmetros de um modelo, onde o modelo é desconhecido, e depende de variáveis não obsersevadas. 
+
+A iteração do $EM$ alterna entre realizar a Expectation $E$ e a Maximization $M$. A $E$ computa o valor esperado da log-verossimilhança avaliada, utilizando a estimativa atual para os parâmetros. Já a $M$ computa os parâmetros, maximizando a esperada log-verossimilhança encontrada em $E$.
+
+A diferença do $EM$ para o $MLE$ é que o $EM$ é capaz de tratar distribuições multimodais, além de ser capaz de estimar os parâmetros mesmo com $missing values$.
 
 
 \subsection{Combinação de Classificadores}
