@@ -7,6 +7,8 @@ clean:
 	@rm *.toc -R
 	@rm *.lof -R
 	@rm *.lot -R
+	@rm *.out -R
+	@rm *.aux -R
 
 build:
 	@latex aprendizagem
@@ -17,7 +19,6 @@ bib:
 	@latex aprendizagem
 
 pdf:
-	@rm *.pdf
 	@dvipdfm aprendizagem.dvi
 
 all:

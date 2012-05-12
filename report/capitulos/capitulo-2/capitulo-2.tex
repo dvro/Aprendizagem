@@ -78,11 +78,76 @@ A iteração do $EM$ alterna entre realizar a Expectation $E$ e a Maximization $
 
 A diferença do $EM$ para o $MLE$ é que o $EM$ é capaz de tratar distribuições multimodais, além de ser capaz de estimar os parâmetros mesmo com $missing values$.
 
+\section{Combinação de Classificadores}
 
-\subsection{Combinação de Classificadores}
+Combinar classificadores é a ação de utilizar dois classificadores para classificar um dado padrão. No caso, a ideia é obter o melhor de cada classificador. A combinação de classificadores deve ser feita utilizando classificadores que diferem, que classificam um mesmo padrão de forma divergente.
+
+Por combinar "o melhor" dos classificadores, esta técnica é interessantes para tratar de regiões de indecisão, driblando limitações dos classificadores utilizados, pois cada um fornece uma informação complementar na tarefa de classificar um padrão.
+
+Existem diversas formas de combinar classificadores, algumas delas serão abordadas logo abaixo.
+
+\subsection{Regra do Produto}
+\label{subsubsec:regradoproduto}
+
+Uma forma de fazer a combinação de classificadores é utilizando a regra do produto. Esta regra, como o próprio nome sugere, nada mais é do que fazer a multiplicação das probabilidades a \textit{posteriori} de cada classificador.
+
+Dado um padrão $x$, ele será classificado como sendo da classe que obtiver maior valor da multiplicação entre as probabilidades a posteriori de um classificador.
+
+Esta técnica é adequada quando as entradas dos classificadores são providas por sensores diferentes.
+
+\subsection{Regra da Soma}
+\label{subsubsec:regradasoma}
+
+A regra da soma faz a combinação de classificadores somando as probabilidades a posteriori de cada classificador. Dado um padrão $x$, ele será classificado como sendo da classe que obtiver maior soma de probabilidade.
+
+A regra da soma é adequada para classificadores que possuem o mesmo sensor, pois o mesmo não é muito sensível a erros na estimação de densidade. Para se obter melhores resultados, pode-se atribuir diferentes pesos para as probabilidades a posteriori de cada classificador.
+
+\subsection{Regra do Máximo}
+\label{subsubsec:regradomaximo}
+
+A regra do máximo é uma aproximação da regra da soma. Nesta aproximação, a probabilidade de uma determinada classe é a maior probabilidade a posteriori dentre as saídas dos classificadores para aquela classe.
+
+\section{Regra do Mínimo}
+\label{subsubsec:regradominimo}
+
+A regra do mínimo é uma aproximação da regra do produto. Nesta aproximação, a probabilidade de uma determinada classe é a menor das probabilidades a posteriori dentre as saídas dos classificadores para aquela classe.
+
+
+\subsection{Regra da Mediana}
+\label{subsubsec:regradamediana}
+
+Esta regra é um caso particular onde é obtida as medianas das probabilidades a posteriori de cada classe. A classe que obtiver maior mediana é utilizada para classificar um padrão $x$ de entrada.
 
 \section{Agrupamento}
+
+Agrupamento, também conhecido como Clusterização, é a classificação não-supervisionada de dados que forma grupos, ou clusters. Assim, a análise de clusters envolve a organização de um conjunto de padrões em agrupamentos, de acordo com algumas regras de similaridade.
+
+De forma simples, pode-se de dizer que a clusterização é o agrupamento de instâncias baseadas nas suas características, ou seja, instâncias similares pertencem ao mesmo grupo. Estes agrupamentos são formados por padrões não rotulados, ou seja, não se sabe a classe de cada padrão, assim, rótulos podem ser definidos após a realização do agrupamento.
+
+Uma vantagem da clusterização é que atualmente, existem muitos dados, mas poucos destes dados são classificados. Algoritmos de clusterização possibilitam a rotulação de forma mais rápida e factível.
+
 \subsection{K-Means}
+
+Um dos algoritmos de clusterização mais famosos é o K-means. Este método divide $T$ padrões em $K$ clusters onde cada padrão $x$ pertence ao cluster de média mais próxima de $x$. O algoritmo é repetido até que poucas alterações sejam feitas em cada iteração. O resultado deste algoritmo é uma partição do espaço em Células de Voronoi.
+
+\begin{algorithm}[H]
+\caption{K-Means}
+\label{alg:kmeans}
+\begin{algorithmic}[1]
+\REQUIRE {$K$: um número de clusters desejados}
+\REQUIRE {$T$: um conjunto de padrões}
+\STATE  $M$ = Obtenha $K$ padrões aleatoriamente
+\STATE  $G$ = Grupo de instâncias de cada padrão em $M$
+\WHILE {$M$ não convergiu}
+\FORALL {$t_i$ $\in$ $T$}
+\STATE  $j$ = index de $KNN(t_i, M)$
+\STATE  adicione $t_i$ ao grupo $G_j$
+\ENDFOR
+\STATE atualize $M$ com as médias de $G$
+\ENDWHILE
+\RETURN os clusters e as medias $G, M$
+\end{algorithmic}
+\end{algorithm}
 
 
 
