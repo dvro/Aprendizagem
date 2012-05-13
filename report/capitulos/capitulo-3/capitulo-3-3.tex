@@ -1,6 +1,27 @@
 % !TEX encoding = ISO-8859-1
 
-Nesta seção, serão descritos os experimentos realizados e os resultados obtidos.
+Neste capítulo, serão descritos os experimentos realizados e os resultados obtidos serão avaliados.
+
+Para avaliar o desempenho de cada classificador, foi calculada a taxa de erro de classificação global e por classes. Para o K-means, também foi calculado o Índice de Rand Corrigido.
+
+Para avaliar os classificadores, utilizou-se \textit{Holdout Cross-Validation} estratificado e repetido. A base dados foi dividida em treino e teste, utilizando a proporção 70\% e 30\%, respectivamente.
+
+O experimento foi executado 50 vezes, para se obter métricas confiaveis de avaliação das técnicas, e para, posteriormente, utilizar o teste de hipótese.
+
+\begin{equation}
+\label{eq:eq1}
+P(\omega_{i} | x_{k},\theta{i}) = \dfrac{p(x_k| \omega_i, \theta_i) \times P(\omega_i)}{\sum_{j=1}^c p(x_k | \omega_j, \theta_j) \times P(\omega_j)}
+\end{equation}
+
+\begin{equation}
+\label{eq:eq2}
+j = \operatorname*{arg\,max}_i P(\omega_{i} | x_{k},\theta{i})
+\end{equation}
+
+Os classificadores se baseiam na estimativa da probabilidade a posteriori das classes, especificada na equação \ref{eq:eq1}. Sendo a regra de decisão classificar um padrão como sendo da classe de maior probabilidade a posteriori, conforme equação \ref{eq:eq2}.
+
+
+
 
 \subsection{K-Means}
 \label{subsec:exp-kmeans}
