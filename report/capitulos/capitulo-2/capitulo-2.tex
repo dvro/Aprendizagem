@@ -5,7 +5,7 @@
 \section{Contexto e Histórico}
 \label{sec:contexto}
 
-Esta sessão abordará sistemas de reconhecimento de padrões e classificadores com aprendizagem baseadas em instâncias.
+Esta seção abordará sistemas de reconhecimento de padrões e classificadores com aprendizagem baseadas em instâncias.
 
 \subsection{Sistemas de Reconhecimento de Padrões}
 \label{subsec:sistemas}
@@ -98,10 +98,11 @@ Onde $k_i$ é a quantidade de instâncias da classe $\omega_i$.
 \subsection{Janela de Parzen}
 \label{subsec:janeladeparzen}
 
-Janela de Parzen é uma técnica de estimação de densidade que se baseia na interpolação de dados. Esta estimativa é feita assumindo-se uma função $K(x)$ que determina a janela centrada em $x$ com largura $h$, esta função é chamada de função de kernel.
+Janela de Parzen é uma técnica de estimação de densidade não-paramétrica que se baseia na interpolação de dados. O estimador tenta interporlar os dados a partir de usos de janelas, como em um histograma, por exemplo, afim de estimar a densidade a partir da frequência das amostras encontradas em cada janela.
+
+Esta estimativa é feita assumindo-se uma função $K(x)$ que determina a janela centrada em $x$ com largura $h$, esta função é chamada de função de kernel.
 
 De maneira simples, para estimar a densidade fixa-se uma região $R$ e um volume fixo $V$, e $k$ correspondente é determinado a partir dos dados de aprendizagem. Assumindo que a região $R$ é um hipercubo de $d$ dimensões, o seu volume é dado por $h^d$.
-
 
 Para se obter a função de densidade de probabilidade de uma amostra $x$ utilizando-se a Janela de Parzen, simplesmente centra-se a região $R$ em $x$ e conta-se o número de instâncias dentro desta região (valor de $k$) na equação \ref{eq:densidade}.
 
@@ -112,23 +113,62 @@ Determinar o $h$ ideal é uma tarefa minunciosa, pois, se o valor de $h$ for mui
 
 Estimativa por máxima verossimilhança, $Maximum-Likelihood$, é um método para estimar os parâmetros de um modelo estatístico. A partir de um conjunto de dados e um dado modelo estatístico (i.e. Normal), o $MLE$ estima valores adequados para os parâmetros do modelo.
 
-De forma geral, dado um conjunto de instâncias de treinamento e um modelo estatístico, o $MLE$ estima os valores dos parâmetros do modelo estatístico de forma que a probabilidade dos dados observados sejam maximizados.
+De forma geral, dado um conjunto de instâncias de treinamento e um modelo estatístico, o $MLE$ estima os valores dos parâmetros do modelo estatístico de forma que a probabilidade dos dados observados sejam maximizadas, conforme a equação \ref{eq:mle}.
+
+\begin{equation}
+\label{eq:mle}
+\hat{\theta} = \operatorname*{arg\,max}_{\theta} \ln P(D | \theta)
+\end{equation}
+
+Onde $\hat{\theta}$ é o valor de $\theta$ mais compatível com os exemplos observados, $D$ é o conjunto de exemplo, e $P(D | \theta)$ é a verossimilhança de $\theta$ em relação ao conjunto de exemplos.
+
+Para o caso de uma distribuição normal, o modelo é definido pelo vetor de médias e pela matrix de covariância. Neste caso, pode-se mostrar que as estimativas de máxima verossimilhança para os parâmetros são dados pelas equações \ref{eq:mle_mean_normal} e \ref{eq:mle_sigma_normal}.
+
+\begin{equation}
+\label{eq:mle_mean_normal}
+\hat{\mu} = \frac{1}{n} \sum_{k = 1}^{n} \mathbf{x_k}
+\end{equation}
+
+\begin{equation}
+\label{eq:mle_sigma_normal}
+\hat{\Sigma } =  \dfrac{1}{n} \sum_{k = 1}^{n} (\mathbf{x_k} - \hat{\mu}) (\mathbf{x_k} - \hat{\mu})^t
+\end{equation}
+
+O algoritmo \textit{MLE} só é capaz de tratar distribuições unimodais, para distribuições multimodais, utiliza-se o algoritmo \textit{EM}, abordado a seguir.
 
 \subsection{Algoritmo Expectation-Maximization}
 \label{subsec:em}
-Expectation-Maximization é um algoritmo iterativo para se encontrar a máxima verossimilhança, os parâmetros de um modelo, onde o modelo é desconhecido, e depende de variáveis não obsersevadas. 
+Expectation-Maximization é um algoritmo iterativo para se encontrar a máxima verossimilhança, os parâmetros de um modelo, onde o modelo é desconhecido e depende de variáveis não obsersevadas. 
 
-A iteração do $EM$ alterna entre realizar a Expectation $E$ e a Maximization $M$. A $E$ computa o valor esperado da log-verossimilhança avaliada, utilizando a estimativa atual para os parâmetros. Já a $M$ computa os parâmetros, maximizando a esperada log-verossimilhança encontrada em $E$.
+A iteração do $EM$ alterna as etapas $E$ (Expectation) e $M$ (Maximization). A etapa $E$ computa o valor esperado da log-verossimilhança avaliada, utilizando a estimativa atual para os parâmetros. Já a etapa $M$ computa os parâmetros, maximizando a esperada log-verossimilhança encontrada na etapa $E$.
 
-A diferença do $EM$ para o $MLE$ é que o $EM$ é capaz de tratar distribuições multimodais, além de ser capaz de estimar os parâmetros mesmo com $missing values$.
+A diferença do $EM$ para o $MLE$ é que o $EM$ é capaz de tratar distribuições multimodais, além de ser capaz de estimar os parâmetros mesmo com \textit{missing values}.
 
 \section{Combinação de Classificadores}
 
-Combinar classificadores é a ação de utilizar dois classificadores para classificar um dado padrão. No caso, a ideia é obter o melhor de cada classificador. A combinação de classificadores deve ser feita utilizando classificadores que diferem, que classificam um mesmo padrão de forma divergente.
+Combinar classificadores é a ação de utilizar dois ou mais classificadores para classificar um dado padrão. No caso, a ideia é obter o melhor de cada classificador. A combinação de classificadores deve ser feita utilizando classificadores que diferem, que classificam um mesmo padrão de forma divergente.
 
-Por combinar "o melhor" dos classificadores, esta técnica é interessantes para tratar de regiões de indecisão, driblando limitações dos classificadores utilizados, pois cada um fornece uma informação complementar na tarefa de classificar um padrão.
+Por combinar \textit{"o melhor"} dos classificadores, esta técnica é interessantes para tratar de regiões de indecisão, driblando limitações dos classificadores utilizados, pois cada um fornece uma informação complementar na tarefa de classificar um padrão.
 
 Existem diversas formas de combinar classificadores, algumas delas serão abordadas logo abaixo.
+
+
+\subsection{Regra da Soma}
+\label{subsubsec:regradasoma}
+
+A regra da soma faz a combinação de classificadores somando as probabilidades a posteriori de cada classificador. Dado um padrão $x$, ele será classificado como define e equação \ref{eq:regradasoma}.
+
+\begin{equation}
+\label{eq:regradasoma}
+(1 - L) p(\omega_j) \sum_{i = 1}^{L} p(\omega_j | \mathbf{x_i}) > (1 - L) p(\omega_k) \sum_{i = 1}^{L} p(\omega_k | \mathbf{x_i}),
+\end{equation}
+\[k = 1, \ldots, C;     k \ne j \] Sendo $C$ o número de classes e $L$ a quantidade de classificadores.
+
+Para probabilidades a priori iguais, o padrão $x$ será classificado como sendo da classe que obtiver maior soma de probabilidades a posteriori.
+
+Esta regra é adequada para classificadores que possuem o mesmo sensor, pois o mesmo não é muito sensível a erros na estimação de densidade. Para se obter melhores resultados, pode-se atribuir diferentes pesos para as probabilidades a posteriori de cada classificador.
+
+Além da regra da soma, existem outras possíveis regras abordadas brevemente nas subseções abaixo.
 
 \subsection{Regra do Produto}
 \label{subsubsec:regradoproduto}
@@ -138,13 +178,6 @@ Uma forma de fazer a combinação de classificadores é utilizando a regra do pr
 Dado um padrão $x$, ele será classificado como sendo da classe que obtiver maior valor da multiplicação entre as probabilidades a posteriori de um classificador.
 
 Esta técnica é adequada quando as entradas dos classificadores são providas por sensores diferentes.
-
-\subsection{Regra da Soma}
-\label{subsubsec:regradasoma}
-
-A regra da soma faz a combinação de classificadores somando as probabilidades a posteriori de cada classificador. Dado um padrão $x$, ele será classificado como sendo da classe que obtiver maior soma de probabilidade.
-
-A regra da soma é adequada para classificadores que possuem o mesmo sensor, pois o mesmo não é muito sensível a erros na estimação de densidade. Para se obter melhores resultados, pode-se atribuir diferentes pesos para as probabilidades a posteriori de cada classificador.
 
 \subsection{Regra do Máximo}
 \label{subsubsec:regradomaximo}

@@ -1,11 +1,11 @@
 % !TEX encoding = ISO-8859-1
 
-Nesta sessão, serão descritos os experimentos realizados e os resultados obtidos.
+Nesta seção, serão descritos os experimentos realizados e os resultados obtidos.
 
 \subsection{K-Means}
 \label{subsec:exp-kmeans}
 
-O K-Means, já abordado na sessão \ref{subsec:teoria-kmeans}, foi utilizado neste experimento com $K$ = 2, o que significa que ele gera 2 clusters. O algoritmo foi executado 100 vezes e foi escolhido o resultado de maior adequação entre os clusters e seus representantes.
+O K-Means, já abordado na seção \ref{subsec:teoria-kmeans}, foi utilizado neste experimento com $K$ = 2, o que significa que ele gera 2 clusters. O algoritmo foi executado 100 vezes e foi escolhido o resultado de maior adequação entre os clusters e seus representantes.
 
 A figura \ref{fig:clusters} mostra graficamente os clusters formados pelo K-Means.
 
@@ -39,7 +39,7 @@ Os resultados obtidos estão representados na tabela \ref{tab:erro-kmeans}.
 \subsection{Máxima Verossimilhança e Algoritmo EM}
 \label{subsec:exp-mle-em}
 
-Nesta subsessão, as estimativas de $P(\omega_i | x_k, \theta_i)$ foram feitas de formas diferentes para as duas classes. Para Classe 1, foi utilizado o Método da Máxima Verossimilhança, supondo uma normal multivariada. Já para a Classe 2, classe que possui 2 conjuntos diferentes (ver sessão \ref{sec:geracaodados}), foi utilizado o algoritmo EM, supondo a existencia de 2 componentes e uma mistura de distribuições normais multivaridas.
+Nesta subseção, as estimativas de $P(\omega_i | x_k, \theta_i)$ foram feitas de formas diferentes para as duas classes. Para Classe 1, foi utilizado o Método da Máxima Verossimilhança, supondo uma normal multivariada. Já para a Classe 2, classe que possui 2 conjuntos diferentes (ver seção \ref{sec:geracaodados}), foi utilizado o algoritmo EM, supondo a existencia de 2 componentes e uma mistura de distribuições normais multivaridas.
 
 Inicialmente, o conjunto de dados foi dividido em Treino e Teste, esta divisão foi feita utilizando a proporção 30\% para teste e 70\% para treino.
 

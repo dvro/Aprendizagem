@@ -1,0 +1,19 @@
+% !TEX encoding = ISO-8859-1
+
+
+A geração de dados está demonstrada na seção \ref{sec:geracaodedados}, o K-means está abordado na seção \ref{subsec:exp-kmeans}, seção seguinte.
+
+Nas seções \ref{subsec:exp-mle-em}, \ref{subsec:exp-janeladeparzen} e \ref{subsec:exp-combinacaodeclassificadores} estão abordados a Máxima Verossimilhança, Janela de Parzen e Combinação de Classificadores, respectivamente.
+
+Para avaliar o desempenho de cada técnica, foi calculada a taxa de erro de classificação global e por classes. Além disso, também foi calculado o Índice de Rand Corrigido.
+
+Para avaliação dos classificadores, foram utilizados os dados citados na seção \ref{sec:geracaodados}. Os classificadores obedecem a regra de decisão especificada abaixo:
+
+\begin{equation}
+j = argmax_i P(\omega_{i} | x_{k},\theta{i})
+\end{equation}
+com
+\begin{equation}
+P(\omega_{i} | x_{k},\theta{i}) = \dfrac{p(x_k| \omega_i, \theta_i) \times P(\omega_i)}{\sum_{j=1}^c p(x_k | \omega_j, \theta_j) \times P(\omega_j)}
+\end{equation}
+
