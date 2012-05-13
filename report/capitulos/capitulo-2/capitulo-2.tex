@@ -45,7 +45,7 @@ O KNN é muito usado por ser um método de aprendizagem supervisionado simples, 
 \end{algorithm}
 
 
-Pode-se dizer que o $K-Nearest Neighbor$ atua considerando a densidade das classes na região onde o padrão que se deseja classificar. A estimação de densidade é baseada na probabilidade a posteriori.
+Pode-se dizer que o $K-Nearest Neighbor$ atua considerando a densidade das classes na região do padrão que se deseja classificar. Ou seja, o mesmo calcula diretamente a probabilidade a posteriori.
 
 \subsection{Janela de Parzen}
 \label{subsec:janeladeparzen}
@@ -59,7 +59,7 @@ De maneira simples, para estimar a densidade fixa-se uma região $R$ e um volume
 p(x) = \frac{\frac{k}{n}}{V}
 \end{equation}
 
-Para se obter a função de densidade de probabilidade de uma amostra $x$ utilizando-se a Janela de Parzen, simplismente centra-se a região $R$ em $x$ e conta-se o número de instâncias dentro desta região (valor de $k$) na equação \ref{eq:parzen1}.
+Para se obter a função de densidade de probabilidade de uma amostra $x$ utilizando-se a Janela de Parzen, simplesmente centra-se a região $R$ em $x$ e conta-se o número de instâncias dentro desta região (valor de $k$) na equação \ref{eq:parzen1}.
 
 Determinar o $h$ ideal é uma tarefa minunciosa, pois, se o valor de $h$ for muito pequeno, haverá muita especialização e estará mais sujeita a erros ocasionados por ruídos, já se $h$ for muito grande, ocorrerá uma super-generalização. A escolha da função $K(x)$ apropriada também é um problema para esta técnica.
 
