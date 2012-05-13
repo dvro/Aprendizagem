@@ -22,8 +22,8 @@ pdf:
 	@dvipdfm aprendizagem.dvi
 
 all:
-	@make clean
 	@make build
 	@make bib
 	@make pdf
+	@make clean
 
