@@ -16,6 +16,38 @@ Existem três problemas gerais que a aprendizagem de máquina tenta resolver. Um
 
 Reconhecimento de padrões ataca principalmente o problema da discriminação, tendo por objetivo classificar padrões, discriminando-os entre duas ou mais classes. A classificação pode ser feita com padrões pertencentes a qualquer domínio, como reconhecimento de digitais, gestos, escrita, fala, entre outros.
 
+\section{Agrupamento}
+
+Agrupamento, também conhecido como Clusterização, é a classificação não-supervisionada de dados que forma grupos, ou clusters. Assim, a análise de clusters envolve a organização de um conjunto de padrões em agrupamentos, de acordo com algumas regras de similaridade.
+
+De forma simples, pode-se de dizer que a clusterização é o agrupamento de instâncias baseadas nas suas características, ou seja, instâncias similares pertencem ao mesmo grupo. Estes agrupamentos são formados por padrões não rotulados, que não se sabe a classe de cada padrão, assim, rótulos podem ser definidos após a realização da clusterização.
+
+Uma vantagem da clusterização é que atualmente existem muitos dados, mas poucos destes dados são classificados. Algoritmos de clusterização possibilitam a rotulação de forma mais rápida e factível por um especialista.
+
+\subsection{K-Means}
+\label{subsec:teoria-kmeans}
+
+Um dos algoritmos de clusterização mais famosos é o K-means. Este método divide $T$ padrões em $K$ clusters onde cada padrão $x$ pertence ao cluster de média mais próxima de $x$. O algoritmo é repetido até que poucas alterações sejam feitas em cada iteração. O resultado deste algoritmo é uma partição do espaço em Células de Voronoi.
+
+\begin{algorithm}[H]
+\caption{K-Means}
+\label{alg:kmeans}
+\begin{algorithmic}[1]
+\REQUIRE {$K$: um número de clusters desejados}
+\REQUIRE {$T$: um conjunto de padrões}
+\STATE  $M$ = Obtenha $K$ padrões aleatoriamente
+\STATE  $G$ = Lista de grupos de instâncias $\in$ ao cluster do representante em $M$
+\WHILE {$M$ não convergiu}
+\FORALL {$t_i$ $\in$ $T$}
+\STATE  $j$ = index de $KNN(t_i, M)$
+\STATE  adicione $t_i$ ao grupo $G_j$
+\ENDFOR
+\STATE atualize $M$ com as médias de $G$
+\ENDWHILE
+\RETURN os clusters e as médias $G, M$
+\end{algorithmic}
+\end{algorithm}
+
 \section{Classificadores}
 \label{sec:classificadores}
 
@@ -24,7 +56,7 @@ Todo sistema de reconhecimento de padrões utiliza um classificador para discrim
 \subsection{K-Nearest Neighbor}
 \label{subsec:knn}
 
-O KNN é muito usado por ser um método de aprendizagem supervisionado simples, e por possuir uma taxa de acerto relativamente alta. O conceito básico consiste em: Dado um padrão $x$ a ser classificado e um conjunto de padrões conhecidos $T$, obter as classes dos $K$ elementos de $T$ mais próximos de $x$. A classe que obtiver maior ocorrência, ou peso, será a classe de $x$. Pode-se dizer que o KNN utiliza uma abordagem \textit{"Dize-me com quem andas, e direi quem és."}. O algoritmo esta descrito em Algorithm \ref{alg:knn}.
+O KNN é muito usado por ser um método de aprendizagem supervisionado simples, e por possuir uma taxa de acerto relativamente alta. O conceito básico consiste em: dado um padrão $x$ a ser classificado e um conjunto de padrões conhecidos $T$, obter as classes dos $K$ elementos de $T$ mais próximos de $x$. A classe que obtiver maior ocorrência, ou peso, será a classe de $x$. Pode-se dizer que o KNN utiliza uma abordagem \textit{"Diga-me com quem andas, e direi quem és."}. O algoritmo está descrito em Algorithm \ref{alg:knn}.
 
 \begin{algorithm}[H]
 \caption{KNN}
@@ -47,6 +79,22 @@ O KNN é muito usado por ser um método de aprendizagem supervisionado simples, 
 
 Pode-se dizer que o $K-Nearest Neighbor$ atua considerando a densidade das classes na região do padrão que se deseja classificar. Ou seja, o mesmo calcula diretamente a probabilidade a posteriori.
 
+O \textit{KNN} é uma técnica de estimativa de densidade não paramétrica, onde a densidade é calculada a partir da equação \ref{eq:densidade}, onde $K_n$ é um valor fixo que é função do número de exemplos $n$, $V_n$ é uma variável aleatória que, no caso do \textit{KNN} é a distância da amostra $x$ para o \textit{k-ésimo} vizinho mais próximo.
+
+\begin{equation}
+\label{eq:densidade}
+p(x) = \frac{\frac{k_n}{n}}{V_n}
+\end{equation}
+
+A partir da estimativa de probabilidade a priori (proporção de classes no todo) e estimativa da densidade condicional, encontra-se a probabilidade a posteriori, intuitivamente representada pela regra de decisão do \textit{KNN}:
+
+\begin{equation}
+\label{eq:knnposteriori}
+P(\omega_i | x) = \dfrac{k_i}{K}
+\end{equation}
+Onde $k_i$ é a quantidade de instâncias da classe $\omega_i$.
+
+
 \subsection{Janela de Parzen}
 \label{subsec:janeladeparzen}
 
@@ -54,12 +102,8 @@ Janela de Parzen é uma técnica de estimação de densidade que se baseia na in
 
 De maneira simples, para estimar a densidade fixa-se uma região $R$ e um volume fixo $V$, e $k$ correspondente é determinado a partir dos dados de aprendizagem. Assumindo que a região $R$ é um hipercubo de $d$ dimensões, o seu volume é dado por $h^d$.
 
-\begin{equation}
-\label{eq:parzen1}
-p(x) = \frac{\frac{k}{n}}{V}
-\end{equation}
 
-Para se obter a função de densidade de probabilidade de uma amostra $x$ utilizando-se a Janela de Parzen, simplesmente centra-se a região $R$ em $x$ e conta-se o número de instâncias dentro desta região (valor de $k$) na equação \ref{eq:parzen1}.
+Para se obter a função de densidade de probabilidade de uma amostra $x$ utilizando-se a Janela de Parzen, simplesmente centra-se a região $R$ em $x$ e conta-se o número de instâncias dentro desta região (valor de $k$) na equação \ref{eq:densidade}.
 
 Determinar o $h$ ideal é uma tarefa minunciosa, pois, se o valor de $h$ for muito pequeno, haverá muita especialização e estará mais sujeita a erros ocasionados por ruídos, já se $h$ for muito grande, ocorrerá uma super-generalização. A escolha da função $K(x)$ apropriada também é um problema para esta técnica.
 
@@ -118,37 +162,6 @@ A regra do mínimo é uma aproximação da regra do produto. Nesta aproximação
 
 Esta regra é um caso particular onde é obtida as medianas das probabilidades a posteriori de cada classe. A classe que obtiver maior mediana é utilizada para classificar um padrão $x$ de entrada.
 
-\section{Agrupamento}
-
-Agrupamento, também conhecido como Clusterização, é a classificação não-supervisionada de dados que forma grupos, ou clusters. Assim, a análise de clusters envolve a organização de um conjunto de padrões em agrupamentos, de acordo com algumas regras de similaridade.
-
-De forma simples, pode-se de dizer que a clusterização é o agrupamento de instâncias baseadas nas suas características, ou seja, instâncias similares pertencem ao mesmo grupo. Estes agrupamentos são formados por padrões não rotulados, ou seja, não se sabe a classe de cada padrão, assim, rótulos podem ser definidos após a realização do agrupamento.
-
-Uma vantagem da clusterização é que atualmente, existem muitos dados, mas poucos destes dados são classificados. Algoritmos de clusterização possibilitam a rotulação de forma mais rápida e factível.
-
-\subsection{K-Means}
-\label{subsec:teoria-kmeans}
-
-Um dos algoritmos de clusterização mais famosos é o K-means. Este método divide $T$ padrões em $K$ clusters onde cada padrão $x$ pertence ao cluster de média mais próxima de $x$. O algoritmo é repetido até que poucas alterações sejam feitas em cada iteração. O resultado deste algoritmo é uma partição do espaço em Células de Voronoi.
-
-\begin{algorithm}[H]
-\caption{K-Means}
-\label{alg:kmeans}
-\begin{algorithmic}[1]
-\REQUIRE {$K$: um número de clusters desejados}
-\REQUIRE {$T$: um conjunto de padrões}
-\STATE  $M$ = Obtenha $K$ padrões aleatoriamente
-\STATE  $G$ = Grupo de instâncias de cada padrão em $M$
-\WHILE {$M$ não convergiu}
-\FORALL {$t_i$ $\in$ $T$}
-\STATE  $j$ = index de $KNN(t_i, M)$
-\STATE  adicione $t_i$ ao grupo $G_j$
-\ENDFOR
-\STATE atualize $M$ com as médias de $G$
-\ENDWHILE
-\RETURN os clusters e as medias $G, M$
-\end{algorithmic}
-\end{algorithm}
 
 
 
