@@ -14,7 +14,7 @@ No final dos anos 50, surgiram os primeiros trabalhos de aprendizagem de máquin
 
 Existem três problemas gerais que a aprendizagem de máquina tenta resolver. Um deles é o problema do agrupamento, que consiste em agrupar dados de acordo com suas características, de forma que seja possível extrair informação útil destes agrupamentos. Um outro problema é a discriminação, que basicamente é achar uma forma de reconhecer um conceito, dado um conjunto de conceitos exemplos. O terceiro e último problema é o da generalização, que é o problema de como reduzir uma regra de classificação, tornando-a mais abrangente e menos custosa.
 
-Reconhecimento de padrões ataca principalmente o problema da discriminação, tendo por objetivo classificar padrões, discriminando-os entre duas ou mais classes. A classificação pode ser feita com padrões pertencentes a qualquer domínio, como reconhecimento de digitais, gestos, escrita, fala, entre outros.
+Reconhecimento de padrões ataca principalmente o problema da discriminação, tendo por objetivo classificar padrões, discriminando-os entre duas ou mais classes. A classificação pode ser feita com padrões pertencentes a qualquer domínio, como reconhecimento de digitais, gestos, escrita, fala, entre outros [\cite{dvro:tg}].
 
 \section{Agrupamento}
 
@@ -56,7 +56,7 @@ Todo sistema de reconhecimento de padrões utiliza um classificador para discrim
 \subsection{K-Nearest Neighbor}
 \label{subsec:knn}
 
-O KNN é muito usado por ser um método de aprendizagem supervisionado simples, e por possuir uma taxa de acerto relativamente alta. O conceito básico consiste em: dado um padrão $x$ a ser classificado e um conjunto de padrões conhecidos $T$, obter as classes dos $K$ elementos de $T$ mais próximos de $x$. A classe que obtiver maior ocorrência, ou peso, será a classe de $x$. Pode-se dizer que o KNN utiliza uma abordagem \textit{"Diga-me com quem andas, e direi quem és."}. O algoritmo está descrito em Algorithm \ref{alg:knn}.
+O KNN é muito usado por ser um método de aprendizagem supervisionado simples, e por possuir uma taxa de acerto relativamente alta. O conceito básico consiste em: dado um padrão $x$ a ser classificado e um conjunto de padrões conhecidos $T$, obter as classes dos $K$ elementos de $T$ mais próximos de $x$ [\cite{dvro:tg}]. A classe que obtiver maior ocorrência, ou peso, será a classe de $x$. Pode-se dizer que o KNN utiliza uma abordagem \textit{"Diga-me com quem andas, e direi quem és."}. O algoritmo está descrito em Algorithm \ref{alg:knn}.
 
 \begin{algorithm}[H]
 \caption{KNN}
@@ -138,7 +138,7 @@ O algoritmo \textit{MLE} só é capaz de tratar distribuições unimodais, para 
 
 \subsection{Algoritmo Expectation-Maximization}
 \label{subsec:em}
-Expectation-Maximization é um algoritmo iterativo para se encontrar a máxima verossimilhança, os parâmetros de um modelo, onde o modelo é desconhecido e depende de variáveis não obsersevadas. 
+Expectation-Maximization é um algoritmo iterativo para se encontrar a máxima verossimilhança, os parâmetros de um modelo, onde o modelo é desconhecido e depende de variáveis não obsersevadas [\cite{aulas}].
 
 A iteração do $EM$ alterna as etapas $E$ (Expectation) e $M$ (Maximization). A etapa $E$ computa o valor esperado da log-verossimilhança avaliada, utilizando a estimativa atual para os parâmetros. Já a etapa $M$ computa os parâmetros, maximizando a esperada log-verossimilhança encontrada na etapa $E$.
 
