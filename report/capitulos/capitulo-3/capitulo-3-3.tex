@@ -106,7 +106,7 @@ Conforme mencionado na seção \ref{subsec:janeladeparzen} é muito importante e
 
 \begin{figure}[H]
 \center
-\includegraphics[scale=0.60]{imagens/resultados/globalErrorsPerHValue.eps}
+\includegraphics[scale=0.30]{imagens/resultados/globalErrorsPerHValue.eps}
 \caption{Gráfico de erro global por larguras de janela}
 \label{fig:sup_parzen}
 \end{figure}
@@ -156,8 +156,32 @@ Erro Global			&	Erro da Classe 1	&	Erro da Classe 2	\\
 \label{subsec:exp-combinacaodeclassificadores}
 
 
-Para o classificador baseado em combinação, utilizou-se a regra da soma para estimativa da probabilidade a posteriori das classes.
+Para o classificador baseado em combinação, utilizou-se a regra da soma para estimativa da probabilidade a posteriori das classes. Dada a igualdade das probabilidades a priori das classes, a regra de decisão se reduz a atribuir um padrão de testes a classe $\omega_j$ se reduz a equação \ref{eq:reducao-combinacao-classificadores} (que é um caso particular da equação \ref{eq:regradasoma}).
 
+\begin{equation}
+\label{eq:reducao-combinacao-classificadores}
+\sum_{i = 1}^{L} p(\omega_j | \mathbf{x_i}) > \sum_{i = 1}^{L} p(\omega_k | \mathbf{x_i}),
+\end{equation}
+\[k = 1, \ldots, C;     k \ne j \] Sendo $C$ o número de classes e $L$ a quantidade de classificadores.
+
+
+Os classificadores combinados foram 3: o $MLE$ e $EM$, o de Janela de Parzen e o KNN.
+
+Assim, os resultados obtidos estão contidos na tabela \ref{tab:erro-combinacao}.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+Erro Global			&	Erro da Classe 1	&	Erro da Classe 2	\\
+\hline %----- linha horizontal
+0.024 $\pm$ 0.014	&	0.041 $\pm$ 0.025	&	0.007 $\pm$ 0.010	\\
+\hline
+\end{tabular}%--- fechamento do ambiente tabular
+\end{center}   %fim da centralização da tabela
+\caption{Tabela de erro dos Classificadores Combinados}
+\label{tab:erro-combinacao}
+\end{table}
 
 
 
