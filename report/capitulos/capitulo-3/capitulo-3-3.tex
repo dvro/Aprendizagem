@@ -20,8 +20,7 @@ j = \operatorname*{arg\,max}_i P(\omega_{i} | x_{k},\theta{i})
 
 Os classificadores se baseiam na estimativa da probabilidade a posteriori das classes, especificada na equação \ref{eq:eq1}. Sendo a regra de decisão classificar um padrão como sendo da classe de maior probabilidade a posteriori, conforme equação \ref{eq:eq2}.
 
-
-
+Como as classes são igualmente proporcionais, a probabilidade a priori de cada classe é a mesma, 50\%. Reduzindo o problema de classificação, em alguns classificadores.
 
 \subsection{K-Means}
 \label{subsec:exp-kmeans}
@@ -37,8 +36,9 @@ A figura \ref{fig:clusters} mostra graficamente os clusters formados pelo K-Mean
 \label{fig:clusters}
 \end{figure}
 
-Após a clusterização, é necessário associar cada cluster a uma classe. Para fazer isso, foi obtido o centróide de cada cluster e a média das amostras de cada classe. Com os centróides e as médias, o grupo com centróide mais próximo da média da Classe 1, foi associada a esta classe. O grupo com centroide mais distante da média da Classe 1, foi associado a a Classe 2.
+Após a clusterização, é necessário associar cada cluster a uma classe. Para fazer isso, foi obtido o centróide de cada cluster e a média das amostras de cada classe. Com os centróides e as médias, o grupo com centróide mais próximo da média da Classe 1, foi associada a esta classe. O grupo com centróide mais distante da média da Classe 1, foi associado à Classe 2.
 
+Os resultados obtidos estão representados na tabela \ref{tab:erro-kmeans}.
 
 \begin{table}[H]
 \begin{center}
@@ -46,7 +46,7 @@ Após a clusterização, é necessário associar cada cluster a uma classe. Para
 \hline
 Erro Global	&	Erro da Classe 1	&	Erro da Classe 2	&	Rand Corrigido	\\
 \hline %----- linha horizontal
-TAXA AQUI	&		TAXA AQUI		&		TAXA AQUI		&	TAXA AQUI		\\
+	0.18	&		0.36		&		0.00		&	0.4079		\\
 \hline
 \end{tabular}%--- fechamento do ambiente tabular
 \end{center}   %fim da centralização da tabela
@@ -54,33 +54,30 @@ TAXA AQUI	&		TAXA AQUI		&		TAXA AQUI		&	TAXA AQUI		\\
 \label{tab:erro-kmeans}
 \end{table}
 
-Os resultados obtidos estão representados na tabela \ref{tab:erro-kmeans}.
-
+Como existe sobreposição entre as distribuições, e a Classe 2 é multi-modal, o K-means encontra uma certa dificuldade em separar o conjunto em apenas 2 grupos. Pode-se observar também que, apesar de a taxa de erro global estar abaixo de 20\%, o Index de Rand Corrigido esteve mais próximo de uma categorização randomica do que de uma categorização perfeita, estando na região intermediária, próxima de 50\%.
 
 \subsection{Máxima Verossimilhança e Algoritmo EM}
 \label{subsec:exp-mle-em}
 
-Nesta subseção, as estimativas de $P(\omega_i | x_k, \theta_i)$ foram feitas de formas diferentes para as duas classes. Para Classe 1, foi utilizado o Método da Máxima Verossimilhança, supondo uma normal multivariada. Já para a Classe 2, classe que possui 2 conjuntos diferentes (ver seção \ref{sec:geracaodados}), foi utilizado o algoritmo EM, supondo a existencia de 2 componentes e uma mistura de distribuições normais multivaridas.
+Nesta subseção, as estimativas de $P(\omega_i | x_k, \theta_i)$ foram feitas de formas diferentes para as duas classes. Para Classe 1, foi utilizado o Método da Máxima Verossimilhança, supondo uma normal multivariada. Já para a Classe 2 foi utilizado o algoritmo EM, supondo uma mistura de duas distribuições normais.
 
-Inicialmente, o conjunto de dados foi dividido em Treino e Teste, esta divisão foi feita utilizando a proporção 30\% para teste e 70\% para treino.
+Para a Classe 1, obteve-se o vetor de média amostral e a matrix de covariância amostra, conforme as equações \ref{eq:mle_mean_normal} e \ref{eq:mle_sigma_normal}, respectivamente. Com estes parâmetros, foram calculados os valores das densidades para cada padrão de teste.
 
-Para a Classe 1, obteve-se as instâncias de treinamento desta classe e foram obtidas as médias e o desvio padrão de cada atributo desta classe. Com as médias e o desvio padrão, foi utilizada a função do MATLAB $mvnpdf$, passando como parâmetro as instâncias de teste, a média e o desvio padrão das instâncias de treinamento da Classe 1. Assim, obteve-se a \textit{pdf} da Classe 1.
+Já para a Classe 2, por se tratar de uma distribuição multimodal, foram calculados vetor de média amostral de cada compona e a matriz de covariância de cada componente. Isto foi feito por meio do \textit{Expectation-Maximization}. A partir destes parâmetros, foi calculada os valores da função de densidade para os padrões de teste de cada componente.
 
-Já para a Classe 2, por se tratar de uma distribuição multimodal, foi utilizada a função do MATLAB $gmdistribution.fit$, passando como argumentos as instâncias de treinamento da Classe 2 e a quantidade de componentes, no caso 2. Então, obteve-se os parâmetros necessários para utilizar a função $mvnpdf$ para se obter as duas \textit{pdfs} que representam esta classe.
+Uma vez com as funções de densidade de cada componente, a função densidade resultante foi calculada como a soma das funções de densidade de probabilidade das componentes ponderada pelas respectivas probabilidades a priori. Estas probabilidades a priori foram encontradas observando-se as proporções dos padrões de teste encontradas em cada distribuição da mistura.
 
-Porém, ainda é necessário associar cada \textit{pdf} da Classe 2 a sua respectiva componente, para isso, utilizou-se a média de cada sub-conjunto em relação as médias utilizadas para construir as \textit{pdfs}. Assim, é feita a proporção, utilizando a quantidade de instâncias nos sub-conjuntos das classes, para estimar a \textit{pdf} resultante da Classe 2.
-
-Por fim, com as \textit{pdfs} de cada classe, para cada instância, caso a probabilidade a posteriori da Classe 1 for maior ou igual que a da Classe 2, a instância é classificada como sendo da Classe 1, caso contrário, é classificada como sendo da Classe 2.
+Por fim, visto que a probabilidade a priori das classes são iguais, a regra de classificação se reduz a atribuir um padrão à classe de maior densidade de probabilidade seja maior para o padrão em questão.
 
 Os resultados estão descritos na tabela abaixo:
 
 \begin{table}[H]
 \begin{center}
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|l|l|}
 \hline
-Erro Global	&	Erro da Classe 1	&	Erro da Classe 2	&	Rand Corrigido	\\
+Erro Global			&	Erro da Classe 1	&	Erro da Classe 2	\\
 \hline %----- linha horizontal
-TAXA AQUI	&		TAXA AQUI		&		TAXA AQUI		&	TAXA AQUI		\\
+0.031 $\pm$ 0.015	&	0.051 $\pm$ 0.026	&	0.010 $\pm$ 0.013	\\
 \hline
 \end{tabular}%--- fechamento do ambiente tabular
 \end{center}   %fim da centralização da tabela
@@ -91,31 +88,75 @@ TAXA AQUI	&		TAXA AQUI		&		TAXA AQUI		&	TAXA AQUI		\\
 \subsection{Janela de Parzen}
 \label{subsec:exp-janeladeparzen}
 
+Para estimar a função de densidade de probabilidade dos padrões de teste, foi considerada a Função de Kernel Gaussiana centrada em cada padrão de teste, com variância igual ao tamanho da janela $h$.
 
-Uma forma de estimar a função de densidade é pela equação \ref{eq:parzen_densidade}.
+A forma utilizada para estimar a função de densidade, está expressa na equação \ref{eq:parzen_densidade}.
+
 \begin{equation}
 \label{eq:parzen_densidade}
 \hat{p}(x) = \dfrac{1}{n} \dfrac{1}{h_1 \ldots h_p} \sum_{i = 1}^{n}\prod_{j = 1}^{p} K_j \left (\dfrac{x_j - x_{ij}}{h_j} \right )
 \end{equation}
-
-Não implicando em independência de variáveis
-
-\begin{equation}
-\label{eq:parzen_independencia}
-x_i = \left (x_{i1}, \ldots, x_{ip} \right)
-\end{equation}
-
-e o Kernel Gaussiano é
+onde Kernel Gaussiano utilizado foi
 \begin{equation}
 \label{eq:kernel}
 K_j(t) = \dfrac{1}{\sqrt{2\pi}} e^{- \dfrac{t^2}{2}}, t = \left (\dfrac{x - x_i}{h_n} \right)
 \end{equation}
 
+Conforme mencionado na seção \ref{subsec:janeladeparzen} é muito importante escolher a largura da janela adequada. Foram considerados valores independentes para largura da janela em cada dimensão. Para tal, o algoritmo foi executado 50 vezes para cada combinação de larguras de janelas pertencentes ao intervalo [0.1, 0.2, 0.3, ..., 9.8, 9.9, 10] e compondo o gráfico de superfície da figura \ref{fig:sup_parzen}. Nesta figura o eixo vertical representa o erro global médio, e os demais eixos representam combinações de valores da Janela.
+
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.60]{imagens/resultados/globalErrorsPerHValue.eps}
+\caption{Gráfico de erro global por larguras de janela}
+\label{fig:sup_parzen}
+\end{figure}
+
+Assim, escolheu-se um dos valores que estão na região de menor erro global, e os valores escolhidos foram 10 e 5 para o primeiro e o segundo atributo, respectivamente.
+
+Novamente, como a probabilidade a priori é a mesma para ambas as classes, a decisão se resume a classificar o padrão como sendo da classe de maior densidade de probabilidade. tabela \ref{tab:erro-janela-parzen} mostra os erros obtidos por este classificador.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+Erro Global			&	Erro da Classe 1	&	Erro da Classe 2	\\
+\hline %----- linha horizontal
+0.024 $\pm$ 0.013	&	0.032 $\pm$ 0.021	&	0.017 $\pm$ 0.020	\\
+\hline
+\end{tabular}%--- fechamento do ambiente tabular
+\end{center}   %fim da centralização da tabela
+\caption{Tabela de erro da Janela de Parzen}
+\label{tab:erro-janela-parzen}
+\end{table}
+
+\subsection{KNN}
+\label{subsec:exp-knn}
+
+Como visto na seção \ref{subsec:knn} a estimativa de probabilidade a posteriori se dá pela proporção de amostras de cada classe, $K_i$, dividido pelo número de vizinhos considerados, $K$, de acordo com a equação \ref{eq:knnposteriori}.
+
+Assim como para o classificador baseado na Janela de Parzen, é preciso determinar o parâmetro $K$ adequado. Após testes exaustivos, concluiu-se que o valor de $K$ pouca varia a partir do $K$ = 3, para partição de testes utilizada. Portanto, o valor de $K$ escolhido para avaliação e comparação, foi $K$ = 3.
+
+O algoritmo foi executado 50 vezes, e segue a tabela \ref{tab:erro-knn} mostra os resultados obtidos.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+Erro Global			&	Erro da Classe 1	&	Erro da Classe 2	\\
+\hline %----- linha horizontal
+0.030 $\pm$ 0.012	&	0.037 $\pm$ 0.024	&	0.024 $\pm$ 0.023	\\
+\hline
+\end{tabular}%--- fechamento do ambiente tabular
+\end{center}   %fim da centralização da tabela
+\caption{Tabela de erro do KNN}
+\label{tab:erro-knn}
+\end{table}
+
 \subsection{Combinação de Classificadores}
 \label{subsec:exp-combinacaodeclassificadores}
 
 
-
+Para o classificador baseado em combinação, utilizou-se a regra da soma para estimativa da probabilidade a posteriori das classes.
 
 
 
